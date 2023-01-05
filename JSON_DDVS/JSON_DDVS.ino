@@ -11,9 +11,11 @@ int Soundvalue = 0; // sound
 DHT dht(DHTPIN, DHTTYPE);
 
 int Dig_out = LOW;
-int Ana_out = 0;
-
-
+int Ana_out = 0;\
+//this code for JSON format
+int ID = 0;
+String Loramessage = "";
+//
 unsigned long duration;
 unsigned long durasi;
 unsigned long starttime;
@@ -26,7 +28,7 @@ float PM25 = 0;
 float PM10 = 0;
 
 void setup() {
- Serial.begin(9600);
+ Serial.begin(57600);
  pinMode(8,INPUT);
  starttime = millis();//get the current time;
  Serial.println(F("Sensor test show values!"));
@@ -55,49 +57,55 @@ void loop() {
  rasioPM10 = lowpulseoccupansi/(sampletime_ms*10.0); 
  PM25 = 1.1*pow(ratioPM25,3)-3.8*pow(ratioPM25,2)+520*ratioPM25+0.62; // using spec sheet curve
  PM10 = (1.1*pow(rasioPM10,3)-3.8*pow(rasioPM10,2)+520*rasioPM10+0.62)*4;
+//this code for JSON format
+ Loramessage = "'{'ID':" + String(ID) + ", 'Humidity':"+String(h)+",'Temperature C':"+String(t)+", 'Temperature K':"+String(f)+",'Heat Index C':"+String(hic)+",'Heat Index F':"+String(hif)+",'PM25':"+String(PM25)+",'PM10':"+String(PM10)+",'Analog Vib':"+String(Ana_out)+",'Digital Vib':"+String(Dig_out)+",'Digital Sound':"+String(Soundvalue, DEC)+"}'";
+ Serial.println(Loramessage);
 
+ 
+/*
 //temperature
- Serial.print(F(" Hum: "));
+ //Serial.print(F(" Hum: "));
  Serial.print(h);
 
- Serial.print(F("%  Temp: "));
+ //Serial.print(F("%  Temp: "));
  Serial.print(F(" "));
  Serial.print(t);
- Serial.print(F("C "));
+ //Serial.print(F("C "));
  
  Serial.print(F(" "));
  Serial.print(f);
  Serial.print(F(" "));
 
- Serial.print(F("F  Heat index: "));
+ //Serial.print(F("F  Heat index: "));
  Serial.print(hic);
  Serial.print(F(" "));
- Serial.print(F("C "));
+ //Serial.print(F("C "));
  
  Serial.print(hif);
  Serial.print(F(" "));
- Serial.print(F("F"));
+ //Serial.print(F("F"));
 
 // dust
- Serial.print(" PM2.5 = ");
+ //Serial.print(" PM2.5 = ");
  Serial.print(PM25);
  Serial.print(F(" "));
 
  //Serial.print(" PM10 = ");
  Serial.print(PM10);
  Serial.print(F(" "));
- //Serial.print(" pcs/0.01cf");
 
 //vibration
- Serial.print("  Anaolog : ");
+ //Serial.print(" pcs/0.01cf");
+ //Serial.print("  Anaolog : ");
  Serial.print(Ana_out);
  Serial.print(F(" "));
 
- Serial.print("  Digital :");
+ //Serial.print("  Digital :");
  Serial.print(Dig_out);
  Serial.print(F(" "));
 
- Serial.print("  Digital :");
+ //Serial.print("  Digital :");
  Serial.println (Soundvalue, DEC);
-
+*/
+delay(3000);
  }
