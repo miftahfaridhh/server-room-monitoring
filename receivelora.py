@@ -14,8 +14,6 @@ import mariadb
 
 t = time.now()
 
-timenow = time.now().strftime("%Y-%m-%d %H:%M:%S")
-
 print(t)
 if __name__ == '__main__':
     ser = serial.Serial('COM8', 9600)
@@ -27,15 +25,16 @@ if __name__ == '__main__':
             # print(type(line))
             t1 = time.now()
             # print(line,t1-t)
-            t = t1
+            
             data = (ser.readline().decode('utf-8').rstrip())
             data = data.replace("'", '"')
             data = data.replace('"{', "{")
             data = data.replace('}"', "}")
             jsonData = json.loads(data)
-            print(jsonData, type(jsonData))
+            print(jsonData, type(jsonData), t1-t)
+            t = t1
 
-            ID = 2
+            ID = jsonData['ID']
             humidity = jsonData['Humidity']
             temperature = jsonData['Temperature C']
             heat = jsonData['Heat Index C']
@@ -44,6 +43,7 @@ if __name__ == '__main__':
             analogvib = jsonData['Analog Vib']
             digitalvib= jsonData['Digital Vib']
             analogsound= jsonData['Digital Sound']
+            timenow = time.now().strftime("%Y-%m-%d %H:%M:%S")
             
             # for key, value in jsonData.items():
             #     print(value)
