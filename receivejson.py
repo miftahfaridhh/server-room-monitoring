@@ -1,6 +1,7 @@
 import json
 import serial
  
+ 
 connection = serial.Serial('COM6', 57600)
 connection.reset_input_buffer()
  
