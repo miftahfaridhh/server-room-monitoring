@@ -13,7 +13,8 @@ DHT dht(DHTPIN, DHTTYPE);
 int Dig_out = LOW;
 int Ana_out = 0;\
 //this code for JSON format
-int ID = 0;
+int ID = 1;
+int dust10 = 0;
 String Loramessage = "";
 //
 unsigned long duration;
@@ -28,7 +29,7 @@ float PM25 = 0;
 float PM10 = 0;
 
 void setup() {
- Serial.begin(57600);
+ Serial.begin(9600);
  pinMode(8,INPUT);
  starttime = millis();//get the current time;
  Serial.println(F("Sensor test show values!"));
@@ -58,7 +59,7 @@ void loop() {
  PM25 = 1.1*pow(ratioPM25,3)-3.8*pow(ratioPM25,2)+520*ratioPM25+0.62; // using spec sheet curve
  PM10 = (1.1*pow(rasioPM10,3)-3.8*pow(rasioPM10,2)+520*rasioPM10+0.62)*4;
 //this code for JSON format
- Loramessage = "'{'ID':" + String(ID) + ", 'Humidity':"+String(h)+",'Temperature C':"+String(t)+", 'Temperature K':"+String(f)+",'Heat Index C':"+String(hic)+",'Heat Index F':"+String(hif)+",'PM25':"+String(PM25)+",'PM10':"+String(PM10)+",'Analog Vib':"+String(Ana_out)+",'Digital Vib':"+String(Dig_out)+",'Digital Sound':"+String(Soundvalue, DEC)+"}'";
+ Loramessage = "'{'ID':" + String(ID) + ", 'Humidity':"+String(h)+",'Temperature C':"+String(t)+",'Heat Index C':"+String(hic)+",'PM25':"+String(dust10)+",'PM10':"+String(dust10)+",'Analog Vib':"+String(Ana_out)+",'Digital Vib':"+String(Dig_out)+",'Digital Sound':"+String(Soundvalue, DEC)+"}'";
  Serial.println(Loramessage);
 
  
