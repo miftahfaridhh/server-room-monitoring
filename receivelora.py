@@ -3,7 +3,7 @@ from datetime import datetime as time
 t = time.now()
 print(t)
 if __name__ == '__main__':
-    ser = serial.Serial('COM6', 57600)
+    ser = serial.Serial('COM8', 57600)
     ser.reset_input_buffer()
     while True:
 
