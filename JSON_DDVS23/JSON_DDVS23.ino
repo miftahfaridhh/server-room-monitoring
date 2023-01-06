@@ -14,6 +14,7 @@ int Dig_out = LOW;
 int Ana_out = 0;\
 //this code for JSON format
 int ID = 2; //3
+int counter = 0; // tambahans
 String Loramessage = "";
 //
 unsigned long duration;
@@ -59,8 +60,10 @@ void loop() {
  PM10 = (1.1*pow(rasioPM10,3)-3.8*pow(rasioPM10,2)+520*rasioPM10+0.62)*4;
 //this code for JSON format
  Loramessage = "'{'ID':" + String(ID) + ", 'Humidity':"+String(h)+",'Temperature C':"+String(t)+", 'Temperature K':"+String(f)+",'Heat Index C':"+String(hic)+",'Heat Index F':"+String(hif)+",'PM25':"+String(PM25)+",'PM10':"+String(PM10)+",'Analog Vib':"+String(Ana_out)+",'Digital Vib':"+String(Dig_out)+",'Digital Sound':"+String(Soundvalue, DEC)+"}'";
- Serial.println(Loramessage);
-
+ Serial.print(Loramessage);
+ Serial.print("Counter :");
+ Serial.println(counter);
+ counter ++;
  
 /*
 //temperature
