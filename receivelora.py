@@ -44,7 +44,7 @@ def update(jsonData) :
     
 
 if __name__ == '__main__':
-    ser = serial.Serial('COM8', 9600)
+    ser = serial.Serial('COM11', 9600)
     ser.reset_input_buffer()
 
     while True:
@@ -53,18 +53,18 @@ if __name__ == '__main__':
             line = ser.readline().decode('utf-8').rstrip()
             # print(type(line))
             t1 = datetime.now()
-            # print(line,t1-t)
+            print(line,t1-t)
             
-            data = (ser.readline().decode('utf-8').rstrip())
-            data = data.replace("'", '"')
-            data = data.replace('"{', "{")
-            data = data.replace('}"', "}")
-            jsonData = json.loads(data)
-            print(jsonData, type(jsonData), t1-t)
-            t = t1
+            # data = (ser.readline().decode('utf-8').rstrip())
+            # data = data.replace("'", '"')
+            # data = data.replace('"{', "{")
+            # data = data.replace('}"', "}")
+            # jsonData = json.loads(data)
+            # print(jsonData, type(jsonData), t1-t)
+            # t = t1
             
-            tre = Thread(target=update, args=(jsonData,))
-            tre.start()
-            tre.join()
+            # tre = Thread(target=update, args=(jsonData,))
+            # tre.start()
+            # tre.join()
 
 # value =1
