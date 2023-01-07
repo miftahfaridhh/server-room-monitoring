@@ -1,9 +1,12 @@
 #include "DHT.h"
-
+#include <LowPower.h>
 int pin = 8; // kuning
 int pon = 9; // abu abu
 int soundPin = A0; // sound
 int Soundvalue = 0; // sound
+
+String cmd;
+
 
 #define Dig_pin 6 // vibr
 #define DHTPIN 4  // dht = dat
@@ -13,7 +16,7 @@ DHT dht(DHTPIN, DHTTYPE);
 int Dig_out = LOW;
 int Ana_out = 0;\
 //this code for JSON format
-int ID = 2; //3
+int ID = 3; //2
 int counter = 0; // tambahans
 String Loramessage = "";
 //
@@ -36,6 +39,34 @@ void setup() {
  dht.begin();
 }
 
+void receive(){
+  if (Serial.available()){
+    char SerialInByte;
+    SerialInByte = Serial.read();
+    if(SerialInByte==13) //carriage return \n
+     { 
+            //Serial.print("Received message : ");
+            Serial.print(cmd);
+            cmd = "";
+     }
+     else
+     {
+      cmd += String(SerialInByte);
+     }
+  }  
+}
+
+void tunggu(){
+  receive();
+  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);   
+  receive();
+  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);   
+  receive();
+  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);   
+  receive();
+  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);    
+  }
+  
 void loop() {
  Soundvalue = analogRead (soundPin);
  Dig_out = digitalRead(Dig_pin);
@@ -58,13 +89,15 @@ void loop() {
  rasioPM10 = lowpulseoccupansi/(sampletime_ms*10.0); 
  PM25 = 1.1*pow(ratioPM25,3)-3.8*pow(ratioPM25,2)+520*ratioPM25+0.62; // using spec sheet curve
  PM10 = (1.1*pow(rasioPM10,3)-3.8*pow(rasioPM10,2)+520*rasioPM10+0.62)*4;
-//this code for JSON format
- Loramessage = "'{'ID':" + String(ID) + ", 'Humidity':"+String(h)+",'Temperature C':"+String(t)+", 'Temperature K':"+String(f)+",'Heat Index C':"+String(hic)+",'Heat Index F':"+String(hif)+",'PM25':"+String(PM25)+",'PM10':"+String(PM10)+",'Analog Vib':"+String(Ana_out)+",'Digital Vib':"+String(Dig_out)+",'Digital Sound':"+String(Soundvalue, DEC)+"}'";
+//this code for JSON format\
+//Loramessage = "'{'ID':" + String(ID) + ", 'Hum':"+String(h)+",'TempC':"+String(t)+",'Hic':"+String(hic)+",'PM25':"+String(dust10)+",'PM10':"+String(dust10)+",'Avib':"+String(Ana_out)+",'Dvib':"+String(Dig_out)+",'dsound':"+String(Soundvalue, DEC)+"}'";
+ Loramessage = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(PM25)+",'E':"+String(PM10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+"}'";
  Serial.print(Loramessage);
  Serial.print("Counter :");
  Serial.println(counter);
  counter ++;
- 
+ delay(1000);
+ tunggu();
 /*
 //temperature
  //Serial.print(F(" Hum: "));
@@ -110,5 +143,5 @@ void loop() {
  //Serial.print("  Digital :");
  Serial.println (Soundvalue, DEC);
 */
-delay(3000);
+
  }
