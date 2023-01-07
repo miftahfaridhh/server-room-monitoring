@@ -11,6 +11,7 @@ from collections import Counter
 import warnings
 warnings.filterwarnings('ignore')
 import mariadb
+from tools.preprocess_lib import * #library bang kris
 
 
 t = datetime.now()
@@ -50,18 +51,24 @@ if __name__ == '__main__':
     while True:
 
         if ser.in_waiting > 0:
-            line = ser.readline().decode('utf-8').rstrip()
-            # print(type(line))
-            t1 = datetime.now()
-            print(line,t1-t)
-            
-            # data = (ser.readline().decode('utf-8').rstrip())
-            # data = data.replace("'", '"')
-            # data = data.replace('"{', "{")
-            # data = data.replace('}"', "}")
-            # jsonData = json.loads(data)
-            # print(jsonData, type(jsonData), t1-t)
+            # line = ser.readline().decode('utf-8').rstrip()
+            # # print(type(line))
+            # print(line,t1-t)
             # t = t1
+            t1 = datetime.now()
+            try:
+                data = (ser.readline().decode('utf-8').rstrip())
+                data = data.replace("'", '"')
+                data = data.replace('"{', "{")
+                data = data.replace('}"', "}")
+                jsonData = json.loads(data)
+            except:
+                jsonData = {
+                    'Data': "Kosong"
+                }
+            bot.send_message(jsonData)
+            print(jsonData, type(jsonData), t1-t)
+            t = t1
             
             # tre = Thread(target=update, args=(jsonData,))
             # tre.start()
