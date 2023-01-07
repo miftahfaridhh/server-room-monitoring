@@ -52,19 +52,25 @@ void receive(){
      else
      {
       cmd += String(SerialInByte);
+      delay(1000);
+      LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
      }
   }  
 }
 
 void tunggu(){
   receive();
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);   
+  LowPower.powerDown(SLEEP_4S, ADC_OFF, BOD_OFF);
+  LowPower.powerDown(SLEEP_2S, ADC_OFF, BOD_OFF);  
   receive();
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);   
+  LowPower.powerDown(SLEEP_4S, ADC_OFF, BOD_OFF);
+  LowPower.powerDown(SLEEP_2S, ADC_OFF, BOD_OFF);   
   receive();
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);   
+  LowPower.powerDown(SLEEP_4S, ADC_OFF, BOD_OFF);
+  LowPower.powerDown(SLEEP_2S, ADC_OFF, BOD_OFF);   
   receive();
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);      
+  LowPower.powerDown(SLEEP_4S, ADC_OFF, BOD_OFF);
+  LowPower.powerDown(SLEEP_2S, ADC_OFF, BOD_OFF);      
   }
   
 void loop() {
