@@ -51,13 +51,11 @@ if __name__ == '__main__':
     while True:
 
         if ser.in_waiting > 0:
-            # line = ser.readline().decode('utf-8').rstrip()
-            # # print(type(line))
-            # print(line,t1-t)
-            # t = t1
             t1 = datetime.now()
+
             try:
-                data = (ser.readline().decode('utf-8').rstrip())
+                data = ser.readline().decode('utf-8').rstrip()
+                print(data)
                 data = data.replace("'", '"')
                 data = data.replace('"{', "{")
                 data = data.replace('}"', "}")
@@ -65,10 +63,12 @@ if __name__ == '__main__':
                 tre = Thread(target=update, args=(jsonData,))
                 tre.start()
                 tre.join()
+                
             except:
                 jsonData = {
                     'Data': "Kosong",
                 }
+                
             bot.send_message(jsonData)
             print(jsonData, type(jsonData), t1-t)
             t = t1
