@@ -11,6 +11,7 @@ from collections import Counter
 import warnings
 warnings.filterwarnings('ignore')
 import mariadb
+from tools.preprocess_lib import * #library bang kris
 
 
 t = datetime.now()
@@ -18,14 +19,14 @@ print(t)
 
 def update(jsonData) :
     ID = jsonData['ID']
-    humidity = jsonData['Humidity']
-    temperature = jsonData['Temperature C']
-    heat = jsonData['Heat Index C']
-    pm25= jsonData['PM25']
-    pm10 = jsonData['PM10']
-    analogvib = jsonData['Analog Vib']
-    digitalvib= jsonData['Digital Vib']
-    analogsound= jsonData['Digital Sound']
+    humidity = jsonData['A']
+    temperature = jsonData['B']
+    heat = jsonData['C']
+    pm25= jsonData['D']
+    pm10 = jsonData['E']
+    analogvib = jsonData['F']
+    digitalvib= jsonData['G']
+    analogsound= jsonData['H']
     timenow = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     # for key, value in jsonData.items():
@@ -44,27 +45,33 @@ def update(jsonData) :
     
 
 if __name__ == '__main__':
-    ser = serial.Serial('COM8', 9600)
+    ser = serial.Serial('COM11', 9600)
     ser.reset_input_buffer()
 
     while True:
 
         if ser.in_waiting > 0:
-            line = ser.readline().decode('utf-8').rstrip()
-            # print(type(line))
             t1 = datetime.now()
-            # print(line,t1-t)
-            
-            data = (ser.readline().decode('utf-8').rstrip())
-            data = data.replace("'", '"')
-            data = data.replace('"{', "{")
-            data = data.replace('}"', "}")
-            jsonData = json.loads(data)
+
+            try:
+                data = ser.readline().decode('utf-8').rstrip()
+                print(data)
+                data = data.replace("'", '"')
+                data = data.replace('"{', "{")
+                data = data.replace('}"', "}")
+                jsonData = json.loads(data)
+                tre = Thread(target=update, args=(jsonData,))
+                tre.start()
+                tre.join()
+                
+            except:
+                jsonData = {
+                    'Data': "Kosong",
+                }
+                
+            bot.send_message(jsonData)
             print(jsonData, type(jsonData), t1-t)
             t = t1
             
-            tre = Thread(target=update, args=(jsonData,))
-            tre.start()
-            tre.join()
 
 # value =1
