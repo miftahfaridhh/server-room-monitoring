@@ -1,30 +1,28 @@
-#include <LowPower.h>
-String cmd = "";
+String cmd;
 
 void setup() {
  Serial.begin(9600);
 }
 
-void loop() {
-  if (Serial.available()){
-    char SerialInByte;
-    SerialInByte = Serial.read();
-    if(SerialInByte==13) //carriage return \n
-     { 
-            //Serial.print("Received message : ");
-            Serial.print(cmd);
-            cmd = "";
-            delay(500);
-            LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
-            delay(250);
-            LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
-     }
-     else
-     {
-      cmd += String(SerialInByte);
-      //delay(125);
-      //LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
-      //delay(125);
-     }
-  }
+void loop(){
+//  #Serial.print("Siap");
+  if (Serial.available()>0){
+    //delay(500);
+    char a;
+    a = Serial.read();
+    if (a==13){
+      Serial.print(cmd);
+      cmd = "";
+    }
+    else{
+      cmd += String(a);
+    }
+    Serial.print(String(a));
+    delay(500);
+    if (a=='1'){
+      Serial.println("ini satu");
+      delay(1000); 
+      }
+    }
+  delay(100); 
 }
