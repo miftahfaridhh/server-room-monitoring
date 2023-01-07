@@ -35,7 +35,7 @@ void setup() {
  Serial.begin(9600);
  pinMode(8,INPUT);
  starttime = millis();//get the current time;
- Serial.println(F("Sensor test show values!"));
+ //Serial.println(F("Sensor test show values!"));
  dht.begin();
 }
 
@@ -64,7 +64,7 @@ void tunggu(){
   receive();
   LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);   
   receive();
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);    
+  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);      
   }
   
 void loop() {
@@ -87,14 +87,13 @@ void loop() {
  float hic = dht.computeHeatIndex(t, h, false);
  ratioPM25 = lowpulseoccupancy/(sampletime_ms*10.0); // Integer percentage 0=>100
  rasioPM10 = lowpulseoccupansi/(sampletime_ms*10.0); 
- PM25 = 1.1*pow(ratioPM25,3)-3.8*pow(ratioPM25,2)+520*ratioPM25+0.62; // using spec sheet curve
+ PM25 = 1.1*pow(ratioPM25,3)-3.8*pow(ratioPM25,2)+520*ratioPM25+0.62; // using spec sheet curve+String(dust10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+"}'";
+
  PM10 = (1.1*pow(rasioPM10,3)-3.8*pow(rasioPM10,2)+520*rasioPM10+0.62)*4;
 //this code for JSON format\
 //Loramessage = "'{'ID':" + String(ID) + ", 'Hum':"+String(h)+",'TempC':"+String(t)+",'Hic':"+String(hic)+",'PM25':"+String(dust10)+",'PM10':"+String(dust10)+",'Avib':"+String(Ana_out)+",'Dvib':"+String(Dig_out)+",'dsound':"+String(Soundvalue, DEC)+"}'";
- Loramessage = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(PM25)+",'E':"+String(PM10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+"}'";
- Serial.print(Loramessage);
- Serial.print("Counter :");
- Serial.println(counter);
+ Loramessage = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(PM25)+",'E':"+String(PM10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
+ Serial.println(Loramessage);
  counter ++;
  delay(1000);
  tunggu();
