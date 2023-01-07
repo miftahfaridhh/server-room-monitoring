@@ -76,9 +76,6 @@ if __name__ == '__main__':
                 jsonData = {
                     'Data': "Kosong",
                 }
-                
+
             print(jsonData, type(jsonData), t1-t)
             t = t1
-            
-
-# value =1
