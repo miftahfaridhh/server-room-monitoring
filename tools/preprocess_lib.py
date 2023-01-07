@@ -112,16 +112,6 @@ def genLaggedFeat(df, n_lags):
     
     return df_nn
 
-def genTimeFeat(data):
-    data = (data
-                    .assign(minute = df_transformed.index.minute)
-                    # .assign(day = df.index.day)
-                    # .assign(month = df.index.month)
-                    # .assign(day_of_week = df.index.day_of_week)
-                    # .assign(week_of_year = df.index.week)
-                    )
-    return data
-
 def genCylicalFeat(df, col_name, period, start_num=0):
     kwargs = {
         f'sin_{col_name}': lambda x: np.sin(2*np.pi*(df[col_name]-start_num)/period),
