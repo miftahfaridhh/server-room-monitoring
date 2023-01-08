@@ -24,9 +24,6 @@ void loop() {
       Serial.println(c);
       
       delay(500);
-//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
-//      delay(1000);
-//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
       }
     if (b==50){
       d = "'Fajar Ganteng Dong'";
@@ -35,9 +32,6 @@ void loop() {
       Serial.println(d);
       
       delay(500);
-//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
-//      delay(1000);
-//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
       }
       if (b==51){
       e = "'Fajar Ganteng Banget'";
@@ -46,9 +40,6 @@ void loop() {
       Serial.println(e);
       
       delay(500);
-//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
-//      delay(1000);
-//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
       }
     }
 //    delay(1500);
