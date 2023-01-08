@@ -19,26 +19,26 @@ void loop() {
     int b = Serial.read();
 //    delay(100);
 //    Serial.print(b);
-//    if(b==49){
-//      c = "'Fajar Ganteng'";
-//      Serial.println(c);
-//      
-//      delay(500);
-////      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
-////      delay(1000);
-////      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
-//      }
-//    if (b==50){
-//      d = "'Fajar Ganteng Dong'";
-//      
-//      //digitalWrite(LED_BUILTIN, HIGH);
-//      Serial.println(d);
-//      
-//      delay(500);
-////      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
-////      delay(1000);
-////      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
-//      }
+    if(b==49){
+      c = "'Fajar Ganteng'";
+      Serial.println(c);
+      
+      delay(500);
+//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
+//      delay(1000);
+//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
+      }
+    if (b==50){
+      d = "'Fajar Ganteng Dong'";
+      
+      //digitalWrite(LED_BUILTIN, HIGH);
+      Serial.println(d);
+      
+      delay(500);
+//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
+//      delay(1000);
+//      LowPower.powerDown(SLEEP_250MS, ADC_OFF, BOD_OFF);
+      }
       if (b==51){
       e = "'Fajar Ganteng Banget'";
       
