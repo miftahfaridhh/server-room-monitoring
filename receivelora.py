@@ -50,7 +50,7 @@ def update(jsonData) :
     
 
 if __name__ == '__main__':
-    ser = serial.Serial('COM11', 9600)
+    ser = serial.Serial('COM5', 9600)
     ser.reset_input_buffer()
 
     while True:
@@ -71,11 +71,13 @@ if __name__ == '__main__':
                 tre2 = Thread(target=tele, args=(jsonData,))
                 tre2.start()
                 tre2.join()
+                beda = t1-t
+                t = t1
+                print (beda)
                 
             except:
                 jsonData = {
                     'Data': "Kosong",
                 }
 
-            print(jsonData, type(jsonData), t1-t)
-            t = t1
+            print(jsonData, type(jsonData))
