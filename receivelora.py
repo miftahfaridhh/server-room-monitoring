@@ -73,11 +73,9 @@ if __name__ == '__main__':
                 tre2.join()
                 beda = t1-t
                 t = t1
-                print (beda)
+                print(jsonData, type(jsonData),beda)
                 
             except:
                 jsonData = {
                     'Data': "Kosong",
                 }
-
-            print(jsonData, type(jsonData))
