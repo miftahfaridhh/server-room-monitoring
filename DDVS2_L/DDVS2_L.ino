@@ -43,7 +43,7 @@ void loop() {
     char a;
     int b = Serial.read();
     //Serial.print(b);
- // b==49 means  
+ // b==88 means NUMBER 1 in transmitter 
     if(b==88){
       Soundvalue = analogRead (soundPin);
       Dig_out = digitalRead(Dig_pin);

@@ -36,13 +36,10 @@ void setup() {
 }
 
 void loop() {
- //JSON FORMAT == LORAMESSAGE==C
- //Loramessage = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(dust10)+",'E':"+String(dust10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
-  
   if(Serial.available()){
     int b = Serial.read();
     //Serial.print(b);
-     // b==49 means 1
+ // b==88 means NUMBER 1 in transmitter 
     if(b==90){
       Soundvalue = analogRead (soundPin);
       Dig_out = digitalRead(Dig_pin);
@@ -62,18 +59,6 @@ void loop() {
       counter ++;
       delay(5000);
       }
-/*
-    if (b==50){
-      d = "'Fajar Ganteng Dong'";
-      Serial.println(d);
-      delay(500);
-      }
-      if (b==51){
-      e = "'Fajar Ganteng Banget'";
-      Serial.println(e);
-      delay(500);
-      }
-      */
     }
 //    delay(1500);
 }
