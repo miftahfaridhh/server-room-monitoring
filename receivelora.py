@@ -17,6 +17,11 @@ from tools.preprocess_lib import * #library bang kris
 t = datetime.now()
 print(t)
 
+
+def tele(jsonData) : 
+    bot.send_message(jsonData)
+
+
 def update(jsonData) :
     ID = jsonData['ID']
     humidity = jsonData['A']
@@ -63,15 +68,14 @@ if __name__ == '__main__':
                 tre = Thread(target=update, args=(jsonData,))
                 tre.start()
                 tre.join()
+                tre2 = Thread(target=tele, args=(jsonData,))
+                tre2.start()
+                tre2.join()
                 
             except:
                 jsonData = {
                     'Data': "Kosong",
                 }
-                
-            bot.send_message(jsonData)
+
             print(jsonData, type(jsonData), t1-t)
             t = t1
-            
-
-# value =1
