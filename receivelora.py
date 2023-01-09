@@ -52,16 +52,28 @@ def update(jsonData) :
     
 
 if __name__ == '__main__':
-    ser = serial.Serial('COM5', 9600)
+    ser = serial.Serial('COM10', 9600)
     ser.reset_input_buffer()
+    a=1
 
     while True:
 
+        waktuuji = int(datetime.now().strftime('%H%M%S'))
+        # print(waktuuji-t)
+        if (waktuuji-t)%30==0:
+            # print(waktuuji-t)
+            # a+=1
+            ser.close()
+            ser = serial.Serial('COM10', 9600)
+            ser.reset_input_buffer()
+
         if ser.in_waiting > 0:
+            # print(ser.in_waiting)
             t1 = int(datetime.now().strftime('%H%M%S'))
 
             try:
                 data = ser.readline().decode('utf-8').rstrip()
+                # print(data)
                 data = data.replace("'", '"')
                 data = data.replace('"{', "{")
                 data = data.replace('}"', "}")
