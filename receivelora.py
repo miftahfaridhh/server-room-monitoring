@@ -3,16 +3,18 @@ from datetime import datetime
 import time
 import json
 import serial
-import numpy as np
-from sklearn.ensemble import IsolationForest
-from joblib import load, dump
 from threading import Thread
-from collections import Counter
 import warnings
 warnings.filterwarnings('ignore')
 import mariadb
-from tools.preprocess_lib import * #library bang kris
+# from tools.preprocess_lib import * #library bang kris
+from telegrambotalarm import TelegramBot
 
+TOKEN = '5984463318:AAG714F-PCHhutZwkCXI-vSboctmwbtGhAU'
+MYID = '-711603736' #scipaper group
+# MYID = '1246189043' #personal
+
+bot = TelegramBot(TOKEN, MYID)
 
 t = datetime.now()
 print(t)
