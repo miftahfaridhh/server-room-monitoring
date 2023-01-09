@@ -29,11 +29,13 @@ def update(jsonData) :
     humidity = jsonData['A']
     temperature = jsonData['B']
     heat = jsonData['C']
-    pm25= jsonData['D']
-    pm10 = jsonData['E']
-    analogvib = jsonData['F']
-    digitalvib= jsonData['G']
-    analogsound= jsonData['H']
+    concentration25= jsonData['D']
+    pm25= jsonData['E']
+    concentration10= jsonData['F']
+    pm10 = jsonData['G']
+    analogvib = jsonData['H']
+    digitalvib= jsonData['I']
+    analogsound= jsonData['J']
     timenow = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     # for key, value in jsonData.items():
@@ -41,8 +43,8 @@ def update(jsonData) :
 
     db_conn = mariadb.connect(host="113.198.211.95", user="admina", password="admina", database="SCIHUB", port=3306)
     db_cursor = db_conn.cursor()
-    db_command1 = f"INSERT INTO `scihub` (`Date`, `ID`, `humidity`, `temperature`, `heat`, `pm25`, `pm10`, `analogvib`, `digitalvib`, `analogsound`) VALUES ('{timenow}', \
-        {ID},{humidity},{temperature},{heat},{pm25},{pm10},{analogvib},{digitalvib},{analogsound})"
+    db_command1 = f"INSERT INTO `scihub` (`Date`, `ID`, `humidity`, `temperature`, `heat`, `concentration25`, `pm25`, `concentration10`, `pm10`, `analogvib`, `digitalvib`, `analogsound`) VALUES ('{timenow}', \
+        {ID},{humidity},{temperature},{heat},{concentration25},{pm25},{concentration10},{pm10},{analogvib},{digitalvib},{analogsound})"
     # print(db_command1)
     db_cursor.execute(db_command1)
     db_conn.commit()
@@ -52,7 +54,7 @@ def update(jsonData) :
     
 
 if __name__ == '__main__':
-    ser = serial.Serial('COM10', 9600)
+    ser = serial.Serial('COM5', 9600)
     ser.reset_input_buffer()
     a=1
 
@@ -60,11 +62,11 @@ if __name__ == '__main__':
 
         waktuuji = int(datetime.now().strftime('%H%M%S'))
         # print(waktuuji-t)
-        if (waktuuji-t)%30==0:
+        if (waktuuji-t)%60==0:
             # print(waktuuji-t)
             # a+=1
             ser.close()
-            ser = serial.Serial('COM10', 9600)
+            ser = serial.Serial('COM5', 9600) #'/dev/ttyACM0'
             ser.reset_input_buffer()
 
         if ser.in_waiting > 0:
@@ -73,7 +75,7 @@ if __name__ == '__main__':
 
             try:
                 data = ser.readline().decode('utf-8').rstrip()
-                # print(data)
+                print(data)
                 data = data.replace("'", '"')
                 data = data.replace('"{', "{")
                 data = data.replace('}"', "}")
