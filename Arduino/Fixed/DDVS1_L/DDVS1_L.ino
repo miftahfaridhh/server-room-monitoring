@@ -22,7 +22,9 @@ unsigned long sampletime_ms = 500;//sampe 30s ;
 unsigned long lowpulseoccupancy = 0;
 unsigned long lowpulseoccupansi = 0;
 float ratioPM25 = 0;
-float rasioPM10 = 0;
+float ratioPM10 = 0;
+float concentrationPM25 = 0;
+float concentrationPM10 = 0;
 float PM25 = 0;
 float PM10 = 0;
 
