@@ -3,18 +3,20 @@ from datetime import datetime
 import time
 import json
 import serial
-import numpy as np
-from sklearn.ensemble import IsolationForest
-from joblib import load, dump
 from threading import Thread
-from collections import Counter
 import warnings
 warnings.filterwarnings('ignore')
 import mariadb
-from tools.preprocess_lib import * #library bang kris
+# from tools.preprocess_lib import * #library bang kris
+from telegrambotalarm import TelegramBot
 
+TOKEN = '5984463318:AAG714F-PCHhutZwkCXI-vSboctmwbtGhAU'
+MYID = '-711603736' #scipaper group
+# MYID = '1246189043' #personal
 
-t = datetime.now()
+bot = TelegramBot(TOKEN, MYID)
+
+t = int(datetime.now().strftime('%H%M%S'))
 print(t)
 
 
@@ -56,11 +58,10 @@ if __name__ == '__main__':
     while True:
 
         if ser.in_waiting > 0:
-            t1 = datetime.now()
+            t1 = int(datetime.now().strftime('%H%M%S'))
 
             try:
                 data = ser.readline().decode('utf-8').rstrip()
-                print(data)
                 data = data.replace("'", '"')
                 data = data.replace('"{', "{")
                 data = data.replace('}"', "}")
@@ -73,11 +74,12 @@ if __name__ == '__main__':
                 tre2.join()
                 beda = t1-t
                 t = t1
-                print (beda)
+                print(jsonData, "delay:",beda)
                 
             except:
                 jsonData = {
                     'Data': "Kosong",
                 }
 
-            print(jsonData, type(jsonData))
+            if (t1-t)>50:
+                ser.reset_input_buffer()
