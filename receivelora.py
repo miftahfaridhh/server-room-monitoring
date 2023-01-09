@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
             try:
                 data = ser.readline().decode('utf-8').rstrip()
-                print(data)
+                # print(data)
                 data = data.replace("'", '"')
                 data = data.replace('"{', "{")
                 data = data.replace('}"', "}")
