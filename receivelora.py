@@ -16,7 +16,7 @@ MYID = '-711603736' #scipaper group
 
 bot = TelegramBot(TOKEN, MYID)
 
-t = datetime.now()
+t = int(datetime.now().strftime('%H%M%S'))
 print(t)
 
 
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     while True:
 
         if ser.in_waiting > 0:
-            t1 = datetime.now()
+            t1 = int(datetime.now().strftime('%H%M%S'))
 
             try:
                 data = ser.readline().decode('utf-8').rstrip()
@@ -80,3 +80,6 @@ if __name__ == '__main__':
                 jsonData = {
                     'Data': "Kosong",
                 }
+
+            if (t1-t)>50:
+                ser.reset_input_buffer()
