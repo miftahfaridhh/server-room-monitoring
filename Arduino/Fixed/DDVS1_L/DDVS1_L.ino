@@ -89,7 +89,7 @@ void loop() {
       float hif = dht.computeHeatIndex(f, h);
       float hic = dht.computeHeatIndex(t, h, false);
     
-      c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(concentrationPM25)+",'E':"+String(PM25)+",'F':"+String(concentrationPM10)+",'G':"+String(PM10)+",'H':"+String(Ana_out)+",'I':"+String(Dig_out)+",'J':"+String(Soundvalue, DEC)+",'Con':"+String(PM25)+"}'";
+      c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(concentrationPM25)+",'E':"+String(PM25)+",'F':"+String(concentrationPM10)+",'G':"+String(PM10)+",'H':"+String(Ana_out)+",'I':"+String(Dig_out)+",'J':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
       Serial.println(c);  
       counter ++;
       delay(5000);

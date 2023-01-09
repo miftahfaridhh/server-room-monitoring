@@ -91,7 +91,7 @@ void loop() {
       float hic = dht.computeHeatIndex(t, h, false);
       //Loramessage = "'{'ID':" + String(ID) + ", 'Hum':"+String(h)+",'TempC':"+String(t)+",'Hic':"+String(hic)+",'PM25':"+String(concentrationPM25)+'ug/m3'+",'PM25 count':"+String(PM25)+'pt/cf'+",'PM10':"+String(concentrationPM10)+'ug/m3'+",'PM10 count':"+String(PM10)+'pt/cf'+",'Avib':"+String(Ana_out)+",'Dvib':"+String(Dig_out)+",'dsound':"+String(Soundvalue, DEC)+"}'";
       //Loramessage = "'{'ID':" + String(ID) + ", 'Hum':"+String(h)+",'TempC':"+String(t)+",'Hic':"+String(hic)+",'PM25':"+String(dust10)+",'PM10':"+String(dust10)+",'Avib':"+String(Ana_out)+",'Dvib':"+String(Dig_out)+",'dsound':"+String(Soundvalue, DEC)+"}'";     
-      c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(concentrationPM25)+",'E':"+String(PM25)+",'F':"+String(concentrationPM10)+",'G':"+String(PM10)+",'H':"+String(Ana_out)+",'I':"+String(Dig_out)+",'J':"+String(Soundvalue, DEC)+",'Con':"+String(PM25)+"}'";
+      c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(concentrationPM25)+",'E':"+String(PM25)+",'F':"+String(concentrationPM10)+",'G':"+String(PM10)+",'H':"+String(Ana_out)+",'I':"+String(Dig_out)+",'J':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
       //c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(PM25)+",'E':"+String(PM10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
       
       Serial.println(c);  
