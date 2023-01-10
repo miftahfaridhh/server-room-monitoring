@@ -57,7 +57,9 @@ void loop() {
       c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+dust10+",'E':"+dust10+",'F':"+dust10+",'G':"+dust10+",'H':"+String(Ana_out)+",'I':"+String(Dig_out)+",'J':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
       Serial.println(c);
       counter ++;
-      delay(5000);
+     // delay(5000);
+      delay(3000);
+
       }
     }
 //    delay(1500);
