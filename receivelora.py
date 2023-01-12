@@ -54,7 +54,7 @@ def update(jsonData) :
     
 
 if __name__ == '__main__':
-    ser = serial.Serial('COM5', 9600)
+    ser = serial.Serial('COM10', 9600)
     ser.reset_input_buffer()
     a=1
 
