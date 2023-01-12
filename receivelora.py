@@ -66,7 +66,7 @@ if __name__ == '__main__':
             # print(waktuuji-t)
             # a+=1
             ser.close()
-            ser = serial.Serial('COM5', 9600) #'/dev/ttyACM0'
+            ser = serial.Serial('COM10', 9600) #'/dev/ttyACM0'
             ser.reset_input_buffer()
 
         if ser.in_waiting > 0:
