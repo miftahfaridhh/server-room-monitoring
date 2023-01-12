@@ -13,7 +13,7 @@ int Soundvalue = 0; // sound
 int Dig_out = LOW;
 int Ana_out = 0;\
 //this code for JSON format
-int ID = 2; //2
+int ID = 1; //2
 int counter = 0; // tambahan
 unsigned long duration;
 unsigned long durasi;
@@ -40,11 +40,11 @@ void setup() {
 
 void loop() {
   if(Serial.available()){
+    char a;
     int b = Serial.read();
     //Serial.print(b);
-
- // b==89 means NUMBER 1 in transmitter 
-    if(b==89){
+ // b==88 means NUMBER 1 in transmitter 
+    if(b==88){
       Soundvalue = analogRead (soundPin);
       Dig_out = digitalRead(Dig_pin);
       Ana_out = analogRead(A0);
@@ -59,8 +59,7 @@ void loop() {
       {
         ratioPM25 = lowpulseoccupancy/(sampletime_ms*10.0); // Integer percentage 0=>100rasioPM10 = lowpulseoccupansi/(sampletime_ms*10.0); 
         PM25 = 1.1*pow(ratioPM25,3)-3.8*pow(ratioPM25,2)+520*ratioPM25+0.62; // using spec sheet curve+String(dust10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+"}'";
-        PM10 = 1.1*pow(rasioPM10,3)-3.8*pow(rasioPM10,2)+520*rasioPM10+0.62;
-        PM25 -= PM10;
+        PM10 = (1.1*pow(rasioPM10,3)-3.8*pow(rasioPM10,2)+520*rasioPM10+0.62)*4;
       } 
       if (isnan(h) || isnan(t) || isnan(f)) {
         Serial.println(F("Failed to read from DHT sensor!"));
@@ -68,11 +67,11 @@ void loop() {
       }
       float hif = dht.computeHeatIndex(f, h);
       float hic = dht.computeHeatIndex(t, h, false);
-    
+      
       c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(PM25)+",'E':"+String(PM10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
       Serial.println(c);  
       counter ++;
-      delay(5000);
+      delay(1000);
       }
   }
 }

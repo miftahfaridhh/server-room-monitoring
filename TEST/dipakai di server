@@ -1,5 +1,4 @@
 #include "DHT.h"
-#include <LowPower.h>
 #define Dig_pin 6 // vibr
 #define DHTPIN 4  // dht = dat
 #define DHTTYPE DHT22   // DHT 11
@@ -25,6 +24,9 @@ float ratioPM25 = 0;
 float rasioPM10 = 0;
 float PM25 = 0;
 float PM10 = 0;
+float con25 = 0;
+float con10 = 0;
+
 
 String c = "";
 char a;
@@ -57,10 +59,28 @@ void loop() {
       float f = dht.readTemperature(true);
       if ((millis()-starttime) > sampletime_ms)//if the sampel time == 30s
       {
+        double pi = 3.14159;
+        double density = 1.65*pow(10,12);
+        double K = 3531.5;
+
         ratioPM25 = lowpulseoccupancy/(sampletime_ms*10.0); // Integer percentage 0=>100rasioPM10 = lowpulseoccupansi/(sampletime_ms*10.0); 
         PM25 = 1.1*pow(ratioPM25,3)-3.8*pow(ratioPM25,2)+520*ratioPM25+0.62; // using spec sheet curve+String(dust10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+"}'";
+        rasioPM10 = lowpulseoccupancy/(sampletime_ms*10.0);
         PM10 = 1.1*pow(rasioPM10,3)-3.8*pow(rasioPM10,2)+520*rasioPM10+0.62;
         PM25 -= PM10;
+        
+        //PM25
+        double r25 = 0.44*pow(10,-6);
+        double vol25 = (4/3)*pi*pow(r25,3);
+        double mass25 = density*vol25;
+        con25 = (PM25)*K*mass25;
+
+        //PM10
+        double r10 = 2.6*pow(10,-6);
+        double vol10 = (4/3)*pi*pow(r10,3);
+        double mass10 = density*vol10;
+        con10 = (PM10)*K*mass10;
+
       } 
       if (isnan(h) || isnan(t) || isnan(f)) {
         Serial.println(F("Failed to read from DHT sensor!"));
@@ -69,7 +89,8 @@ void loop() {
       float hif = dht.computeHeatIndex(f, h);
       float hic = dht.computeHeatIndex(t, h, false);
     
-      c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(PM25)+",'E':"+String(PM10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
+      //c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(PM25)+",'E':"+String(PM10)+",'F':"+String(Ana_out)+",'G':"+String(Dig_out)+",'H':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
+      c = "'{'ID':" + String(ID) + ", 'A':"+String(h)+",'B':"+String(t)+",'C':"+String(hic)+",'D':"+String(PM25)+",'E':"+String(con25)+",'F':"+String(PM10)+",'G':"+String(con10)+",'H':"+String(Ana_out)+",'I':"+String(Dig_out)+",'J':"+String(Soundvalue, DEC)+",'Con':"+String(counter)+"}'";
       Serial.println(c);  
       counter ++;
       delay(5000);
