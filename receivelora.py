@@ -42,7 +42,7 @@ def update(jsonData) :
     #     print(value)
 
     # db_conn = mariadb.connect(host="113.198.211.95", user="admina", password="admina", database="SCIHUB", port=3306)
-    db_conn = mariadb.connect(host="210.123.42.64", user="root", password="", database="server_room_data", port=3306)
+    db_conn = mariadb.connect(host="210.123.42.64", user="login", password="123", database="server_room_data", port=3306)
     db_cursor = db_conn.cursor() #scihub
     db_command1 = f"INSERT INTO `monitoring` (`Date`, `ID`, `humidity`, `temperature`, `heat`, `concentration25`, `pm25`, `concentration10`, `pm10`, `analogvib`, `digitalvib`, `analogsound`) VALUES ('{timenow}', \
         {ID},{humidity},{temperature},{heat},{concentration25},{pm25},{concentration10},{pm10},{analogvib},{digitalvib},{analogsound})"
