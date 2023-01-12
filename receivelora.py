@@ -33,8 +33,7 @@ def update(jsonData) :
     pm25= jsonData['E']
     concentration10= jsonData['F']
     pm10 = jsonData['G']
-    analogvib = jsonData['H']
-    
+    analogvib = jsonData['H']    
     digitalvib= jsonData['I']
     analogsound= jsonData['J']
     timenow = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -42,9 +41,10 @@ def update(jsonData) :
     # for key, value in jsonData.items():
     #     print(value)
 
-    db_conn = mariadb.connect(host="113.198.211.95", user="admina", password="admina", database="SCIHUB", port=3306)
-    db_cursor = db_conn.cursor()
-    db_command1 = f"INSERT INTO `scihub` (`Date`, `ID`, `humidity`, `temperature`, `heat`, `concentration25`, `pm25`, `concentration10`, `pm10`, `analogvib`, `digitalvib`, `analogsound`) VALUES ('{timenow}', \
+    # db_conn = mariadb.connect(host="113.198.211.95", user="admina", password="admina", database="SCIHUB", port=3306)
+    db_conn = mariadb.connect(host="210.123.42.64", user="root", password="", database="server_room_data", port=3306)
+    db_cursor = db_conn.cursor() #scihub
+    db_command1 = f"INSERT INTO `monitoring` (`Date`, `ID`, `humidity`, `temperature`, `heat`, `concentration25`, `pm25`, `concentration10`, `pm10`, `analogvib`, `digitalvib`, `analogsound`) VALUES ('{timenow}', \
         {ID},{humidity},{temperature},{heat},{concentration25},{pm25},{concentration10},{pm10},{analogvib},{digitalvib},{analogsound})"
     # print(db_command1)
     db_cursor.execute(db_command1)
