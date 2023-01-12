@@ -34,6 +34,7 @@ def update(jsonData) :
     concentration10= jsonData['F']
     pm10 = jsonData['G']
     analogvib = jsonData['H']
+    
     digitalvib= jsonData['I']
     analogsound= jsonData['J']
     timenow = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
